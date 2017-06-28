@@ -10,24 +10,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista Principal</title>
+        <title>Lista Principal de Comentarios</title>
         <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
 
     </head>
     <body>
         <table>
   <tr>
+    
     <th>Id</th>
     <th>Descrição</th>
 
   </tr>
-  <c:forEach var="comentario" items="${comentario}">
+  <c:forEach var="comentario" items="${comentarios}">
       <tr id="comentarios_${comentario.id}">
           <td>${comentario.id}</td>
-          <td>${comentario.descricao}</td>
+          <td>${comentario.comentario}</td>
           
-          <td><a href="removeTarefa?id=${comentario.id}">Remover</a></td>
-          <td><a href="mostraTarefa?id=${comentario.id}">Editar</a></td>
+          <td><a href="removeComentario?id=${comentario.id}&id_topico=${comentario.id_topico}">Remover</a></td>
+          <td><a href="mostraComentario?id=${comentario.id}&id_topico=${comentario.id_topico}">Editar</a></td>
         
          
       </tr>
@@ -37,5 +38,7 @@
 
       
         <td><a href="listaTopicos"> Ir para lista de Topicos </a></td>
+        
+       
     </body>
 </html>

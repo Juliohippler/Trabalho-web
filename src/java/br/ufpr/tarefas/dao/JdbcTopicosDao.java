@@ -7,7 +7,7 @@ package br.ufpr.tarefas.dao;
 
 import br.ufpr.tarefas.jdbc.MysqlConnectionFactory;
 
-import br.ufpr.tarefas.model.Topicos;
+import br.ufpr.tarefas.model.Topico;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -29,7 +29,7 @@ public class JdbcTopicosDao {
     }
     
     //metodo que adiciona no banco de dados
-    public void adiciona(Topicos topicos) {
+    public void adiciona(Topico topicos) {
         String sql = "insert into topicos " + "(descricao) " + "values (?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -47,15 +47,15 @@ public class JdbcTopicosDao {
         }
     }
     
-    public List<Topicos> lista() {
+    public List<Topico> lista() {
         String sql = "select * from topicos";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            List<Topicos> topicos = new ArrayList<Topicos>();
+            List<Topico> topicos = new ArrayList<Topico>();
             while (rs.next()) {
-                Topicos topico = new Topicos();
-                topico.setId(rs.getLong("id"));
+                Topico topico = new Topico();
+                topico.setId(rs.getInt("id"));
                 topico.setDescricao(rs.getString("descricao"));                      
               
                 topicos.add(topico);
@@ -69,15 +69,15 @@ public class JdbcTopicosDao {
         }
     }
     
-        public List<Topicos> getLista() {
+        public List<Topico> getLista() {
         String sql = "select * from topicos";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            List<Topicos> topicos = new ArrayList<Topicos>();
+            List<Topico> topicos = new ArrayList<Topico>();
             while (rs.next()) {
-                Topicos topico = new Topicos();
-                topico.setId(rs.getLong("id"));
+                Topico topico = new Topico();
+                topico.setId(rs.getInt("id"));
                 topico.setDescricao(rs.getString("descricao"));                             
                 
 
@@ -85,6 +85,64 @@ public class JdbcTopicosDao {
             }
             stmt.close();
             return topicos;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+    }
+         public Topico buscaPorId(int id) {
+        String sql = "select * from topicos where id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+                Topico topico = new Topico();
+            if (rs.next()) {                
+                topico.setId(rs.getInt("id"));
+                //comentario.setId_topico(rs.getInt("id_topico"));
+                topico.setDescricao(rs.getString("descricao"));
+               
+            }
+            stmt.close();
+            return topico;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void altera(Topico topico) {
+         String sql = "update topicos set descricao=?"+
+                 " where id = "+topico.getId();        
+         try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, topico.getDescricao());
+           
+            // executa
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+         
+    }
+    
+     public void remove(Topico topico) {
+        String sql = "delete from topicos where id=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, topico.getId());
+
+            // executa
+            stmt.execute();
+            stmt.close();
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

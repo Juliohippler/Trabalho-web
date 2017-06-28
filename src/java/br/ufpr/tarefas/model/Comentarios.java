@@ -47,6 +47,13 @@ public class Comentarios {
     public void setId_Usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
+     public int getId_topico() {
+        return id_topico;
+    }
+
+    public void setId_topico(int id_topico) {
+        this.id_topico = id_topico;
+    }
 
     public String getComentario() {
         return comentario;

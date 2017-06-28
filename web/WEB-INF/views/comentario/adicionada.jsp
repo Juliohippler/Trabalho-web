@@ -12,7 +12,7 @@
         <title>Topicos</title>
     </head>
     <body>
-        <h1>Novo topico adicionado com sucesso</h1>
+        <h1>Novo comentario adicionado com sucesso</h1>
     </body>
-    <td><a href="listaTopicos">Ir para Lista de Topicos</a></td>
+    <td><a href="listaComentarios">Ir para Lista de Comentarios</a></td>
 </html>

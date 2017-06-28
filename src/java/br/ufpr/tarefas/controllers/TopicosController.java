@@ -8,10 +8,9 @@ package br.ufpr.tarefas.controllers;
 
 import br.ufpr.tarefas.dao.JdbcTopicosDao;
 
-import br.ufpr.tarefas.model.Topicos;
+import br.ufpr.tarefas.model.Topico;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -32,21 +31,41 @@ public class TopicosController {
     }
     
     @RequestMapping("/adicionaTopico")
-    public String adicionar(@Valid Topicos topicos, BindingResult result){        
+    public String adicionar(@Valid Topico topico, BindingResult result){        
         if (result.hasErrors()){
             return "topicos/formulario";
         }
         
         JdbcTopicosDao dao = new JdbcTopicosDao();
-        dao.adiciona(topicos);
-        return "topicos/adicionada";
+        dao.adiciona(topico);
+        return "redirect:listaTopicos";
     }
     
       @RequestMapping("/listaTopicos")
     public String listar(Model model) {
         JdbcTopicosDao dao = new JdbcTopicosDao();
-        List<Topicos> topicos = dao.getLista();
+        List<Topico> topicos = dao.getLista();
         model.addAttribute("topicos",topicos);
         return "topicos/lista";
+    }
+     @RequestMapping("mostraTopico")
+    public String mostra(Topico topico, Model model){
+        JdbcTopicosDao dao = new JdbcTopicosDao();
+        model.addAttribute("topico",dao.buscaPorId(topico.getId()));
+        return "topicos/mostra";
+    }
+    
+    @RequestMapping("alteraTopico")
+    public String altera(Topico topico) {
+        JdbcTopicosDao dao = new JdbcTopicosDao();
+        dao.altera(topico);
+        return "redirect:listaTopicos";
+    }
+    
+     @RequestMapping("removeTopico")
+    public String remover(Topico topico) {
+        JdbcTopicosDao dao = new JdbcTopicosDao();
+        dao.remove(topico);       
+        return "redirect:listaTopicos";
     }
 }

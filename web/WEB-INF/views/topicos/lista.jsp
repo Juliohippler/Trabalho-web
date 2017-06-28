@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista Principal</title>
+        <title>Lista Principal de topicos </title>
         <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
 
     </head>
@@ -18,24 +18,30 @@
         <table>
   <tr>
     <th>Id</th>
+    <th>Autor</th>
     <th>Descrição</th>
 
+  
   </tr>
-  <c:forEach var="topicos" items="${topicos}">
-      <tr id="topicos_${topicos.id}">
-          <td>${topicos.id}</td>
-          <td>${topicos.descricao}</td>
+  <c:forEach var="topico" items="${topicos}">
+      <tr id="topicos_${topico.id}">
+          <td>${topico.id}</td>
+          <td></td>
+          <td>${topico.descricao}</td>         
           
-          <td><a href="removeTarefa?id=${topico.id}">Remover</a></td>
-          <td><a href="mostraTarefa?id=${topico.id}">Editar</a></td>
+          <td><a href="mostraTopico?id=${topico.id}">Editar</a></td>
+          <td><a href="removeTopico?id=${topico.id}">Remover</a></td>
+          
           <td><a href="novoComentario?id=${topico.id}">Comentar</a></td>
+          <td><a href="listaComentarios?id=${topico.id}">Ver comentarios</a></td>
          
       </tr>
   </c:forEach>
       <br>
-   </table>
-
       
-        <td><a href="adicionaTopico">Adicionar Novo tópico </a></td>
+   </table>
+      
+        <td><a href="adicionaTopico"  >Adicionar Novo tópico </a></td>
+        
     </body>
 </html>
